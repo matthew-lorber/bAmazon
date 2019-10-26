@@ -1,12 +1,21 @@
-/* CLEAR WINDOW, WELCOME USER AND LOAD REQUIREMENTS */
+/* APPLICATION START */
 console.clear();
 console.log("\u0030\uFE0F\u20E3  WELCOME TO BAMAZON\n");
+
+// LOAD REQUIREMENTS
 var inquirer = require("inquirer");
 var mysql = require("mysql");
-
-/* RETREIVE DATABASE PASSWORD FROM ENVELOPE */
 require("dotenv").config();
 var keys = require("./keys.js");
+
+
+// fs for outputting terminal to .txt file
+//var fs = require("fs");
+// moment for date transformation
+//var moment = require("moment");
+
+
+/* RETREIVE DATABASE PASSWORD FROM ENVELOPE */
 var pw = keys.homeworkdb.password;
 
 /* DEFINE NEW DATABASE CONNECTION */
@@ -20,152 +29,85 @@ database: "bamazon"
 
 /* CONNECT TO NEW CONNECTION */
 connection.connect(function(err) {
-    if (err) throw err;
+  if (err) throw err;
     
-    // DISPLAY INVENTORY (DATABASE TABLE) //
-    connection.query("SELECT * FROM products", function(err, res) {
-      if (err) throw err;
-      console.table(res);
-      console.log("\n\n");
-      connection.end();
-    });
+  /* DISPLAY INVENTORY */
+  connection.query("SELECT * FROM products", function(err, res) {
+    if (err) throw err;
+    console.table(res);
+  });
 });
 
-/* POST OR BID USER INPUT */
-start();
-  
-function start() {
-  
-  inquirer
-    .prompt({
-      name: "postOrBid",
-      type: "list",
-      message: "Would you like to [POST] an auction or [BID] on an auction?",
-      choices: ["POST", "BID", "EXIT"]
-    })
-    .then(function(answer) {
-      // based on their answer, either call the bid or the post functions
-      if (answer.postOrBid === "POST") {
-        postAuction();
-      }
-      else if(answer.postOrBid === "BID") {
-        bidAuction();
-      } else{
-        connection.end();
-      }
-    });
-}
-  
-  // ADDITIONAL SPACING BECAUSE INQUIRER DOESN'T SPACE THE PROMPT OUTPUT CORRECTLY
-  console.log("\n");
-  
-  // function to handle posting new items up for auction
-  function postAuction() {
-    // prompt for info about the item being put up for auction
-    inquirer
-      .prompt([
-        {
-          name: "item",
-          type: "input",
-          message: "What is the item you would like to submit?"
-        },
-        {
-          name: "category",
-          type: "input",
-          message: "What category would you like to place your auction in?"
-        },
-        {
-          name: "startingBid",
-          type: "input",
-          message: "What would you like your starting bid to be?",
-          validate: function(value) {
-            if (isNaN(value) === false) {
-              return true;
-            }
-            return false;
-          }
-        }
-      ])
-      .then(function(answer) {
-        // when finished prompting, insert a new item into the db with that info
-        connection.query(
-          "INSERT INTO auctions SET ?",
-          {
-            item_name: answer.item,
-            category: answer.category,
-            starting_bid: answer.startingBid || 0,
-            highest_bid: answer.startingBid || 0
-          },
-          function(err) {
-            if (err) throw err;
-            console.log("Your auction was created successfully!");
-            // re-prompt the user for if they want to bid or post
-            start();
-          }
-        );
-      });
+/* USER INPUT ITEM AND QUANTITY TO PURCHASE */  
+inquirer
+.prompt({
+  name: "selectItem",
+  type: "input",
+  message: "Enter the item_id you would like to buy, or type EXIT to quit"
+})
+.then(function(val) {
+  if (val.selectItem === "EXIT") {
+    connection.end();
+    return;
   }
-  
-  function bidAuction() {
-    // query the database for all items being auctioned
-    connection.query("SELECT * FROM auctions", function(err, results) {
-      if (err) throw err;
-      // once you have the items, prompt the user for which they'd like to bid on
-      inquirer
-        .prompt([
-          {
-            name: "choice",
-            type: "rawlist",
-            choices: function() {
-              var choiceArray = [];
-              for (var i = 0; i < results.length; i++) {
-                choiceArray.push(results[i].item_name);
-              }
-              return choiceArray;
-            },
-            message: "What auction would you like to place a bid in?"
-          },
-          {
-            name: "bid",
-            type: "input",
-            message: "How much would you like to bid?"
-          }
-        ])
-        .then(function(answer) {
-          // get the information of the chosen item
-          var chosenItem;
-          for (var i = 0; i < results.length; i++) {
-            if (results[i].item_name === answer.choice) {
-              chosenItem = results[i];
-            }
-          }
-  
-          // determine if bid was high enough
-          if (chosenItem.highest_bid < parseInt(answer.bid)) {
-            // bid was high enough, so update db, let the user know, and start over
-            connection.query(
-              "UPDATE auctions SET ? WHERE ?",
-              [
-                {
-                  highest_bid: answer.bid
-                },
-                {
-                  id: chosenItem.id
-                }
-              ],
-              function(error) {
-                if (error) throw err;
-                console.log("Bid placed successfully!");
-                start();
-              }
-            );
+  else {
+    inquirer
+    .prompt({
+      name: "howMany",
+      type: "input",
+      message: "Enter quantity of units to buy, or type EXIT to quit"
+    })
+    .then(function(num) {
+      if (num.howMany === "EXIT") {
+        connection.end();
+        return;
+      }
+      else {
+        // QUERY TO SEE IF THAT MANY AVAILABLE OF THAT ITEM
+        var query = "SELECT * FROM products WHERE ?", {item_number = }
+        //"UPDATE bamazon.products SET stock_quantity = stock_quantity - 3 WHERE item_id = 4;"
+        inquirer
+        .prompt({
+          name: "confirmPurchase",
+          type: "input",
+          message: "Confirm purchase of " + num.howMany + " " + val.selectItem + " by entering YES, or type EXIT to quit"
+        })
+        .then(function(confirm) {
+          if (confirm.confirmPurchase !== "YES") {
+            connection.end();
+            return
           }
           else {
-            // bid wasn't high enough, so apologize and start over
-            console.log("Your bid was too low. Try again...");
-            start();
+            buyItems(num.howMany, val.selectItem);
           }
         });
+      }
     });
   }
+});
+// ADDITIONAL SPACING BECAUSE THE TERMINAL DOESN'T SPACE THE PROMPT OUTPUT CORRECTLY
+console.log("\n");
   
+/* BUY ITEMS */
+function buyItems(item, quantity) {
+  console.log("buying items ", item, quantity);
+  
+  connection.query("SELECT * FROM products", function(err, res) {
+    if (err) throw err;
+    console.table(res);
+  });
+  connection.query(
+
+,
+  function(err, res) {
+    if (err) throw err;
+    console.log("purchased", quantity, "of item", item,"successfully!");
+    connection.query(
+      "SELECT * FROM products", function(err, res) {
+        if (err) throw err;
+        console.table(res);
+      }
+    )    
+    connection.end();
+  });
+} 
