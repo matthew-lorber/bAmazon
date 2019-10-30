@@ -76,7 +76,7 @@ exports.manager = function() {
       var add_department = rl.question('department_name [string]: ');
       var add_price = rl.question('price [number]: ');
       var add_available = rl.question('stock_quantity [number]: ');
-      connection.query("INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('" + add_what + "', '" + add_department + "', '" + add_price + "', '" + add_available + "');");
+      connection.query("INSERT INTO products (product_name, department_name, price, stock_quantity, product_sales) VALUES ('" + add_what + "', '" + add_department + "', '" + add_price + "', '" + add_available + "', 0);");
       console.log("Added " + add_available + " units " + add_what + " to " + add_department + " @ " + add_price + "/unit");
       viewForSale();
     }
