@@ -53,7 +53,6 @@ exports.manager = function() {
     // VIEW LOW INVENTORY
     function viewLow() {
       var whatIsLow = rl.question('\nWhat is the low inventory number today? [number] ');
-      connection.connect();
       connection.query("SELECT * FROM products WHERE stock_quantity < " + whatIsLow + ";", function(err, results) {
       if (err) throw err;
       console.log("\nHere is what's lower than ", whatIsLow);
