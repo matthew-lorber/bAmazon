@@ -12,7 +12,6 @@
 --   PRIMARY KEY (item_id)
 -- );
 
--- DROP TABLE IF EXISTS departments;
 -- CREATE TABLE departments (
 --   department_id INT NOT NULL AUTO_INCREMENT,
 --   department_name VARCHAR(45) NULL,
@@ -21,13 +20,13 @@
 --   PRIMARY KEY (department_id)
 -- );
 
-DROP TABLE IF EXISTS overhead;
-CREATE TABLE overhead (
-  department_id INT NOT NULL AUTO_INCREMENT,
-  department_name VARCHAR(45) NULL,
-  overhead_costs DECIMAL(7,2) NULL,
-  PRIMARY KEY (department_id)
-);
+-- CREATE TABLE overhead (
+--   department_id INT NOT NULL AUTO_INCREMENT,
+--   department_name VARCHAR(45) NULL,
+--   overhead_costs DECIMAL(7,2) NULL,
+--   PRIMARY KEY (department_id)
+-- );
+
 INSERT INTO overhead (department_name, overhead_costs) VALUES ("casual", 21000), ("hikers", 13000), ("dress", 12000), ("street", 17000);
 SELECT * FROM overhead;
 

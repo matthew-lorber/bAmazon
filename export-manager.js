@@ -55,7 +55,7 @@ exports.manager = function() {
       var whatIsLow = rl.question('\nWhat is the low inventory number today? [number] ');
       connection.query("SELECT * FROM products WHERE stock_quantity < " + whatIsLow + ";", function(err, results) {
       if (err) throw err;
-      console.log("\nHere is what's lower than ", whatIsLow);
+      console.log("\nCurrent Inventory < ", whatIsLow);
       console.table(results);
       selector();
       });
@@ -63,28 +63,22 @@ exports.manager = function() {
 
     // ADD TO INVENTORY
     function addToInventory() {
-      connection.query("SELECT * FROM products WHERE stock_quantity < " + whatIsLow + ";", function(err, results) {
-      if (err) throw err;
-      console.log("\nCurrent Inventory < ", whatIsLow);
-      console.table(results);
-      selector();
-      });
       var add_what = rl.question('\nEnter item_id [number]: ');
       var add_quantity = rl.question('\nStock Quantity to Add [number]: ');
       connection.query("UPDATE products SET stock_quantity = stock_quantity + " + add_quantity + " WHERE item_id = " + add_what + ";");
       console.log("Updated ", add_what, " with ", add_quantity, " units.");
-      selector();
+      viewForSale();
     }
 
     // ADD NEW PRODUCT
     function addNewProduct() {
-      var add_what = rl.question('\nProduct to add [string]: ');
-      var add_department = rl.question('\nDepartment [string]: ');
-      var add_price = rl.question('\nUnit Price [number]: ');
-      var add_available = rl.question('\nQuantity Available [number]: ');
-      connection.connect();
-      connection.query("INSERT INTO products ('product_name', 'department_name', 'price', 'stock_quantity', 'product_sales') VALUES ('" + add_what + "', '" + add_department + "', '" + add_price + "', '" + add_available + "');");
-      selector();
+      var add_what = rl.question('product_name [string]: ');
+      var add_department = rl.question('department_name [string]: ');
+      var add_price = rl.question('price [number]: ');
+      var add_available = rl.question('stock_quantity [number]: ');
+      connection.query("INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ('" + add_what + "', '" + add_department + "', '" + add_price + "', '" + add_available + "');");
+      console.log("Added " + add_available + " units " + add_what + " to " + add_department + " @ " + add_price + "/unit");
+      viewForSale();
     }
   }
 }
