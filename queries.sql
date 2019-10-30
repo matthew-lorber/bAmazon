@@ -42,16 +42,16 @@ SELECT * FROM overhead;
 
 INSERT INTO products (product_name, department_name, price, stock_quantity, product_sales)
 VALUES 
-('aviator', 'casual', 48, 142, 10000),
-('topic', 'casual', 87, 176, 10000),
-('guided', 'hikers', 90, 112, 10000),
-('form', 'hikers', 123, 143, 0),
-('suave', 'dress', 67, 188, 0),
-('sombre', 'dress', 90, 132, 0),
-('madras', 'dress', 84, 164, 0),
-('antidote', 'street', 231, 113, 0),
-('exhibit', 'street', 55, 132, 0),
-('conventional', 'street', 77, 133, 0);
+('aviator', 'casual', 248, 142, 10000),
+('topic', 'casual', 87, 376, 0),
+('guided', 'hikers', 90, 412, 5000),
+('form', 'hikers', 123, 343, 0),
+('suave', 'dress', 64, 288, 0),
+('sombre', 'dress', 90, 232, 0),
+('madras', 'dress', 84, 264, 0),
+('antidote', 'street', 231, 213, 0),
+('exhibit', 'street', 75, 232, 0),
+('conventional', 'street', 177, 233, 0);
 
 DELETE FROM products WHERE item_id = 11;
 
