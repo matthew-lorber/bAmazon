@@ -65,4 +65,4 @@ DROP TABLE IF EXISTS net_sales;
 CREATE TABLE net_sales AS SELECT overhead.department_id, overhead.department_name, overhead.overhead_costs, temp_table.department_sales, temp_table.department_sales - overhead.overhead_costs AS net_sales FROM overhead INNER JOIN temp_table ON overhead.department_name = temp_table.department_name;
 SELECT * FROM net_sales;
 
-
+select * from products;

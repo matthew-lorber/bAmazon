@@ -52,7 +52,7 @@ exports.supervisor = function() {
     function createNew() {
       var add_department_name = rl.question('\nNew Department Name[string]: ');
       var add_overhead = rl.question('\nNew Department Overhead Costs [number]: ');
-      connection.query("INSERT INTO overhead (department_name, overhead_costs) VALUES ('" + add_department_name + "', '" + add_overhead + "');");
+      connection.query("INSERT INTO overhead (department_name, overhead_costs) VALUES ('" + add_department_name + "', " + add_overhead + ");");
       supervise();
     }
   }
