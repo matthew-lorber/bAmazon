@@ -5,6 +5,12 @@ In this activity, you'll be creating an Amazon-like storefront with the MySQL sk
 
 Make sure you save and require the MySQL and Inquirer npm packages in your homework files--your app will need them for data input and storage.
 
+## Video
+
+If you can't see the video here, download the raw (bamazon_video.webm) from the repo, or view the published README at https://github.com/matthew-lorber/bAmazon.
+
+<video controls src="./bamazon_video.mp4" width="640" height="480" alt="bamazon_video.webm"></video>
+
 ## Motivation
 A short description of the motivation behind the creation. This should cover **why** the project exists and what drove you to choose this project.
 
@@ -13,8 +19,6 @@ A short description of the motivation behind the creation. This should cover **w
 <b>Technologies</b>
 
 
-* [Heroku](https://www.heroku.com/) is utilized for database provisioning
-* [Live Sass](https://marketplace.visualstudio.com/items?itemName=ritwickdey.live-sass#review-details) SCSS to CSS transpiler
 * [MySQL](https://www.mysql.com) relational database management system
 * [Node.js](https://nodejs.org/) runtime environment
 * [NPM](https://www.npmjs.com/) package manager for runtime libraries
@@ -23,14 +27,9 @@ A short description of the motivation behind the creation. This should cover **w
 <b>Languages</b>
 
 
-* [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) Unix shell and command language
-* [HTML5](https://developer.mozilla.org/en-US/docs/Web/HTML) web markup language
+* [Bash](https://gitforwindows.org) Unix shell and command language
 * [JavaScript](https://www.javascript.com/) scripting language
-* [JQuery](https://jquery.com/) HTML DOM traversal and manipulation
-* [R](https://www.r-project.org/) language for data analysis
-* [Sass](https://sass-lang.com/) style sheet language
 * [SQL](https://en.wikipedia.org/wiki/SQL) backend database manipulation
-* [Velocity.js](http://velocityjs.org/) client-side scripting of web animations
 
 ## Standout Features
 For this project, I interpolated in R an optimization algorithm devised by [Michael Veksler](https://www.quora.com/profile/Michael-Veksler) as well as developed a grep based on the same compression(? this what I call it?) (algebraic version and R interpolation are listed in the **Code Example** section)
