@@ -1,4 +1,4 @@
-# **bAmazon**
+# *__bAm__*azon
 [bAmazon](https://matthew-lorber.github.io/bAmazon/) is a project made for the Rutgers Full Stack Web Developer program. The objective was to create a CLI program using Node.js that manipulates a local database using commands in SQL. The app performs rudimentary tasks as follow:
 
 * Take in orders from customers, and deplete stock from inventory, track sales across departments
