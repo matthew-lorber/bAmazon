@@ -14,7 +14,6 @@ exports.manager = function() {
   database: keys.server.database
   });
 
-  connection.connect();
   selector();
 
   /* SELECTOR */
@@ -37,7 +36,8 @@ exports.manager = function() {
       addNewProduct();
     }
     else {
-      selector();
+      connection.end();
+      return;
     }
 
     // VIEW PRODUCTS FOR SALE
