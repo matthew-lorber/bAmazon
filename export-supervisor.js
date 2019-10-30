@@ -35,15 +35,6 @@ exports.supervisor = function() {
       connection.end();
       return;
     }
-  
-    // CREATE NEW DEPARTMENT
-    function createNew() {
-      var add_department_name = rl.question('\nNew Department Name[string]: ');
-      var add_overhead = rl.question('\nNew Department Overhead Costs [number]: ');
-      connection.connect();
-      connection.query("INSERT INTO overhead ('department_name', 'overhead_costs') VALUES ('" + add_department_name + "', '" + add_overhead + "');");
-      supervise();
-    }
 
     // VIEW SALES BY DEPARTMENT
     function viewSales() {
@@ -55,6 +46,14 @@ exports.supervisor = function() {
       console.table(results);
       supervise();
       });
+    }
+
+    // CREATE NEW DEPARTMENT
+    function createNew() {
+      var add_department_name = rl.question('\nNew Department Name[string]: ');
+      var add_overhead = rl.question('\nNew Department Overhead Costs [number]: ');
+      connection.query("INSERT INTO overhead ('department_name', 'overhead_costs') VALUES ('" + add_department_name + "', '" + add_overhead + "');");
+      supervise();
     }
   }
 }
