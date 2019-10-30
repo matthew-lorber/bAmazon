@@ -2,15 +2,16 @@
 -- CREATE DATABASE bamazon;
 -- USE bamazon;
 
--- CREATE TABLE products (
---   item_id INT NOT NULL AUTO_INCREMENT,
---   product_name VARCHAR(45) NULL,
---   department_name VARCHAR(45) NULL,
---   price DECIMAL(7,2) NULL,
---   stock_quantity INT NULL,
---   product_sales DECIMAL(10, 4),
---   PRIMARY KEY (item_id)
--- );
+-- DROP TABLE IF EXISTS products;
+CREATE TABLE products (
+  item_id INT NOT NULL AUTO_INCREMENT,
+  product_name VARCHAR(45) NULL,
+  department_name VARCHAR(45) NULL,
+  price DECIMAL(7,2) NULL,
+  stock_quantity INT NULL,
+  product_sales DECIMAL(10, 4),
+  PRIMARY KEY (item_id)
+);
 
 -- CREATE TABLE departments (
 --   department_id INT NOT NULL AUTO_INCREMENT,
@@ -39,18 +40,20 @@ SELECT * FROM overhead;
 
 -- ALTER TABLE products ADD COLUMN product_sales DECIMAL(10, 4) NOT NULL AFTER stock_quantity;
 
--- INSERT INTO products (product_name, department_name, price, stock_quantity, product_sales)
--- VALUES 
--- ('aviator', 'casual', 48, 142, 0),
--- ('topic', 'casual', 87, 176, 0),
--- ('guided', 'hikers', 90, 112, 0),
--- ('form', 'hikers', 123, 143, 0),
--- ('suave', 'dress', 67, 188, 0),
--- ('sombre', 'dress', 90, 132, 0),
--- ('madras', 'dress', 84, 164, 0),
--- ('antidote', 'street', 231, 113, 0),
--- ('exhibit', 'street', 55, 132, 0),
--- ('conventional', 'street', 77, 133, 0);
+INSERT INTO products (product_name, department_name, price, stock_quantity, product_sales)
+VALUES 
+('aviator', 'casual', 48, 142, 10000),
+('topic', 'casual', 87, 176, 10000),
+('guided', 'hikers', 90, 112, 10000),
+('form', 'hikers', 123, 143, 0),
+('suave', 'dress', 67, 188, 0),
+('sombre', 'dress', 90, 132, 0),
+('madras', 'dress', 84, 164, 0),
+('antidote', 'street', 231, 113, 0),
+('exhibit', 'street', 55, 132, 0),
+('conventional', 'street', 77, 133, 0);
+
+DELETE FROM products WHERE item_id = 11;
 
 DROP TABLE IF EXISTS temp_table;
 CREATE TABLE temp_table AS SELECT department_name, SUM(product_sales) AS department_sales FROM products GROUP BY department_name;
